@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Quizz(props) {
   const { apiData } = props;
+  const [userAnswer, setInput] = useState({});
+
+  const handleAnswerChange = (e) =>
+    setInput({
+      ...userAnswer,
+      [e.currentTarget.name]: e.curentTargetValue
+    });
 
   if (!apiData || apiData.length === 0)
     return <div className="card-body">Loading !</div>;
@@ -12,6 +19,11 @@ function Quizz(props) {
     <div>
       <div className="card-body">
         <div className="card-text">{question.question}</div>
+        <input
+          type="text"
+          name="answerInput"
+          onChange={handleAnswerChange}
+        ></input>
         <div className="card-text">{question.answer}</div>
       </div>
       <div className="alert alert-primary"> {JSON.stringify(apiData)}</div>
@@ -55,6 +67,12 @@ function generateQuestion(apiData) {
           break;
         }
         selectedQuestion.question = "What is " + id.name + " house ?";
+        selectedQuestion.possibleAnswers = [
+          "Gryffindor",
+          "Ravrenclaw",
+          "Hufflepuff",
+          "Slytherin"
+        ];
         selectedQuestion.answer = "Answer : " + id.house;
         continueWhile = false;
         break;
