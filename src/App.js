@@ -10,7 +10,6 @@ function App() {
   const [appState, setAppState] = useState({ loaded: false, apiData: null });
 
   useEffect(() => {
-    setAppState({ loaded: true });
     const key = "$2a$10$e2mGSxwidkzAXTFnktuRwu1/XQRbcTzhFSDgOyZO.DOwbhZqoQtMq";
     const apiUrl = "https://www.potterapi.com/v1/characters?key=" + key;
     fetch(apiUrl)
